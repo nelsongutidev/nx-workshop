@@ -1,8 +1,9 @@
-import { Component, Pipe } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { formatRating } from '@bg-hoard/store/util-formatters';
+import { Game } from '@bg-hoard/util-interface';
 
 @Component({
   selector: 'bg-hoard-game-detail',
@@ -14,13 +15,13 @@ export class GameDetailComponent {
 
   game$ = this.route.paramMap.pipe(
     map((params: ParamMap) => params.get('id')),
-    switchMap((id) => this.http.get<any>(`/api/games/${id}`))
+    switchMap((id) => this.http.get<Game[]>(`/api/games/${id}`))
   );
   // formatRating = formatRating;
 }
 
 @Pipe({ name: 'formatRating' })
-export class FormatRatingPipe {
+export class FormatRatingPipe implements PipeTransform {
   transform(value: number): string {
     return formatRating(value);
   }

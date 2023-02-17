@@ -1,5 +1,4 @@
-import { Component, Pipe } from '@angular/core';
-import { getAllGames } from '../fake-api';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 import { formatRating } from '@bg-hoard/store/util-formatters';
 import { HttpClient } from '@angular/common/http';
 import { Game } from '@bg-hoard/util-interface';
@@ -17,7 +16,7 @@ export class AppComponent {
 }
 
 @Pipe({ name: 'formatRating' })
-export class FormatRatingPipe {
+export class FormatRatingPipe implements PipeTransform {
   transform(value: number): string {
     return formatRating(value);
   }

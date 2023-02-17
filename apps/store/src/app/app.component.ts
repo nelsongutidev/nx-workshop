@@ -14,12 +14,4 @@ export class AppComponent {
   }
   title = 'Board Game Hoard';
   games = this.http.get<Game[]>('/api/games');
-  formatRating = formatRating;
-}
-
-@Pipe({ name: 'formatRating' })
-export class FormatRatingPipe implements PipeTransform {
-  transform(value: number): string {
-    return formatRating(value);
-  }
 }
